@@ -1,0 +1,16 @@
+android {
+  defaultConfig {
+    minSdkVersion 21
+    targetSdkVersion 33
+    multiDexEnabled true
+  }
+
+  aaptOptions {
+    additionalParameters "--no-version-vectors"
+  }
+}
+
+dependencies {
+    implementation 'com.google.android.gms:play-services-maps:18.2.0'
+    implementation 'com.google.android.gms:play-services-location:21.1.0'
+}

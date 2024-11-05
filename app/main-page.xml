@@ -1,0 +1,44 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" 
+      xmlns:maps="nativescript-google-maps-sdk"
+      navigatingTo="navigatingTo" class="page">
+    <ActionBar title="Railway Gate Tracker" class="action-bar">
+        <ActionItem ios.position="right" android.position="actionBar"
+                   text="{{ isTracking ? 'Stop' : 'Start' }}"
+                   tap="{{ toggleTracking }}" />
+    </ActionBar>
+    
+    <GridLayout rows="*, auto">
+        <maps:MapView row="0" id="mapView" 
+            latitude="{{ userLatitude }}"
+            longitude="{{ userLongitude }}"
+            zoom="15"
+            mapReady="onMapReady"
+            markerSelect="onMarkerSelect"
+            showUserLocation="true" />
+
+        <StackLayout row="1" class="p-4 bg-white" visibility="{{ hasActiveGate ? 'visible' : 'collapsed' }}">
+            <GridLayout columns="*, auto" class="mb-2">
+                <Label col="0" text="{{ selectedGateName }}" class="text-lg font-bold" />
+                <Label col="1" text="{{ distance + ' km away' }}" class="text-sm text-gray-500" />
+            </GridLayout>
+            
+            <GridLayout rows="auto, auto" columns="auto, *" class="p-2 rounded-lg" 
+                       backgroundColor="{{ gateStatus === 'OPEN' ? '#e6ffe6' : '#ffe6e6' }}">
+                <Label row="0" col="0" text="Status: " class="font-bold"/>
+                <Label row="0" col="1" text="{{ gateStatus }}" 
+                       class="{{ gateStatus === 'OPEN' ? 'text-green-600' : 'text-red-600' }}"/>
+                
+                <Label row="1" col="0" text="Time: " class="font-bold"/>
+                <Label row="1" col="1" text="{{ remainingTime }}" class="text-blue-600"/>
+            </GridLayout>
+
+            <Button text="Navigate" tap="{{ onNavigate }}" 
+                    class="btn btn-primary m-t-4"/>
+        </StackLayout>
+
+        <StackLayout row="1" class="p-4 bg-white" visibility="{{ !hasActiveGate ? 'visible' : 'collapsed' }}">
+            <Label text="Select a railway gate on the map to view its status" 
+                   class="text-center text-gray-500" textWrap="true"/>
+        </StackLayout>
+    </GridLayout>
+</Page>

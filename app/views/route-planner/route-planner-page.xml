@@ -1,0 +1,38 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="onNavigatingTo" class="page">
+    <ActionBar title="Plan Your Route" class="action-bar">
+        <ActionItem ios.position="right" 
+                   android.position="actionBar"
+                   text="Logout"
+                   tap="{{ logout }}" />
+    </ActionBar>
+    
+    <StackLayout class="p-4">
+        <Label text="Enter Route Details" class="h2 text-center m-b-4"/>
+        
+        <TextField text="{{ startLocation }}"
+                  hint="Start Location"
+                  class="input m-b-2"/>
+        
+        <TextField text="{{ endLocation }}"
+                  hint="Destination"
+                  class="input m-b-4"/>
+        
+        <Button text="Plan Route"
+                tap="{{ planRoute }}"
+                class="btn btn-primary m-b-4"/>
+        
+        <ListView items="{{ gatesInRoute }}" visibility="{{ hasRoute ? 'visible' : 'collapsed' }}">
+            <ListView.itemTemplate>
+                <GridLayout columns="*, auto" class="p-2">
+                    <Label col="0" text="{{ name }}" class="text-lg"/>
+                    <Label col="1" text="{{ status }}" class="{{ status === 'OPEN' ? 'text-green' : 'text-red' }}"/>
+                </GridLayout>
+            </ListView.itemTemplate>
+        </ListView>
+        
+        <Button text="Start Journey"
+                tap="{{ startJourney }}"
+                visibility="{{ hasRoute ? 'visible' : 'collapsed' }}"
+                class="btn btn-primary"/>
+    </StackLayout>
+</Page>

@@ -1,0 +1,32 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="onNavigatingTo" class="page">
+    <ActionBar title="Login" class="action-bar" />
+    
+    <StackLayout class="p-4">
+        <Label text="Enter your mobile number" class="h2 text-center m-b-4"/>
+        
+        <GridLayout rows="auto, auto" columns="*, auto" class="m-b-4">
+            <TextField row="0" col="0" 
+                      text="{{ phoneNumber }}"
+                      hint="Phone Number"
+                      keyboardType="phone"
+                      class="input"/>
+            <Button row="0" col="1" 
+                    text="Send OTP"
+                    tap="{{ sendOTP }}"
+                    isEnabled="{{ !otpSent }}"
+                    class="btn btn-primary"/>
+        </GridLayout>
+
+        <StackLayout visibility="{{ otpSent ? 'visible' : 'collapsed' }}">
+            <TextField text="{{ otp }}"
+                      hint="Enter OTP"
+                      keyboardType="number"
+                      maxLength="6"
+                      class="input m-b-4"/>
+            
+            <Button text="Verify OTP"
+                    tap="{{ verifyOTP }}"
+                    class="btn btn-primary"/>
+        </StackLayout>
+    </StackLayout>
+</Page>
